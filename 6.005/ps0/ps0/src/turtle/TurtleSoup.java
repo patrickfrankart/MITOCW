@@ -3,6 +3,7 @@
  */
 package turtle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TurtleSoup {
@@ -112,7 +113,18 @@ public class TurtleSoup {
      *         otherwise of size (# of points) - 1
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+        List<Double> output = new ArrayList<>();
+        if(xCoords.isEmpty() || yCoords.isEmpty()){
+            return output;
+        }
+        double firstHeading = calculateHeadingToPoint(0, xCoords.get(0), yCoords.get(0), xCoords.get(1), yCoords.get(1));
+        output.add(firstHeading);
+
+        for(int i = 1; i < xCoords.size()-1; ++i){
+            output.add(calculateHeadingToPoint(output.get(i-1), xCoords.get(i), yCoords.get(i), xCoords.get(i+1), yCoords.get(i+1)));
+        }
+
+        return output;
     }
 
     /**
